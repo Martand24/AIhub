@@ -13,10 +13,7 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Background Animation */}
       <div className="absolute inset-0 animate-gradient bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500 opacity-50 blur-2xl"></div>
-
-      {/* Signup Card */}
       <div className="relative z-10 bg-white dark:bg-gray-900 shadow-xl rounded-2xl p-8 max-w-md w-full space-y-6">
         <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white">
           Create Your Account 🚀
@@ -24,17 +21,12 @@ const Signup = () => {
         <p className="text-center text-gray-500 dark:text-gray-400">
           Join AI HUB to explore amazing tools
         </p>
-
-        {/* Google Signup */}
         <GoogleLoginButton />
-
         <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
           <hr className="flex-grow border-gray-300 dark:border-gray-600" />
           OR
           <hr className="flex-grow border-gray-300 dark:border-gray-600" />
         </div>
-
-        {/* Signup Form */}
         <form onSubmit={handleSignup} className="space-y-4">
           <div>
             <label className="block text-gray-700 dark:text-gray-300 mb-1">

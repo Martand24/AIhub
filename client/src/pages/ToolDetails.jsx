@@ -14,7 +14,6 @@ const ToolDetails = () => {
   const toolId = dummyTool.id;
 
   useEffect(() => {
-    // Load saved reviews from localStorage
     const storedReviews = JSON.parse(localStorage.getItem(`reviews-${toolId}`)) || [];
     setReviews(storedReviews);
   }, [toolId]);
@@ -25,8 +24,6 @@ const ToolDetails = () => {
     const updatedReviews = [...reviews, newReview];
     setReviews(updatedReviews);
     localStorage.setItem(`reviews-${toolId}`, JSON.stringify(updatedReviews));
-
-    // Reset form
     setRating(0);
     setReviewText("");
   };
@@ -38,13 +35,9 @@ const ToolDetails = () => {
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-2">{dummyTool.name}</h2>
       <p className="mb-4">{dummyTool.description}</p>
-
-      {/* Average Rating */}
       <div className="mb-4">
         <p>Average Rating: ⭐ {averageRating.toFixed(1)} / 5</p>
       </div>
-
-      {/* Review Form */}
       <form onSubmit={submitReview} className="space-y-4 mb-6">
         <div>
           <label className="block mb-1 font-semibold">Your Rating (1-5):</label>
@@ -71,8 +64,6 @@ const ToolDetails = () => {
           Submit Review
         </button>
       </form>
-
-      {/* Reviews List */}
       <div>
         <h3 className="text-xl font-bold mb-2">Reviews:</h3>
         {reviews.length === 0 ? (

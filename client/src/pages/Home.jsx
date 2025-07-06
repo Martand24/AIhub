@@ -24,8 +24,6 @@ const Home = () => {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Discover AI Tools</h2>
-
-      {/* Search Bar */}
       <input
         type="text"
         placeholder="Search tools..."
@@ -33,8 +31,6 @@ const Home = () => {
         onChange={(e) => setSearchQuery(e.target.value)}
         className="w-full p-2 border rounded mb-4"
       />
-
-      {/* Category Filter */}
       <div className="flex gap-2 mb-4">
         {categories.map((cat) => (
           <button
@@ -48,8 +44,6 @@ const Home = () => {
           </button>
         ))}
       </div>
-
-      {/* Filtered Tools */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredTools.map((tool, idx) => (
           <ToolCard key={idx} tool={tool} />
