@@ -1,4 +1,5 @@
 import Tool from "../models/Tool.js";
+import Review from "../models/Review.js";
 
 export const getTools = async (req, res) => {
   const tools = await Tool.find();
@@ -41,14 +42,30 @@ export const createTool = async (req, res) => {
 };
 
 
-export const getToolById = async (req, res) => {
+// export const getToolById = async (req, res) => {
+//   try {
+//     const tool = await Tool.findById(req.params.id);
+//     if (!tool) {
+//       return res.status(404).json({ message: "Tool not found" });
+//     }
+//     res.json(tool);
+//   } catch (err) {
+//     res.status(500).json({ message: "Server Error" });
+//   }
+// };
+
+export const getToolById =  async (req, res) => {
   try {
     const tool = await Tool.findById(req.params.id);
-    if (!tool) {
-      return res.status(404).json({ message: "Tool not found" });
-    }
-    res.json(tool);
+    if (!tool) return res.status(404).json({ message: "Tool not found" });
+
+    const reviews = await Review.find({ tool: req.params.id })
+      .populate("user", "name")  // Fetch reviewer's name
+      .sort({ createdAt: -1 });
+
+    res.json({ tool, reviews });
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
-};
+}

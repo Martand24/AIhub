@@ -11,12 +11,9 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // const handleSignup = (e) => {
-  //   e.preventDefault();
-  //   alert("Signup functionality to be integrated later.");
-  // };
+
   const handleSignup = async (e) => {
-  e.preventDefault();  // Prevent page reload
+  e.preventDefault(); 
   try {
     const res = await axios.post(`${API_URL}/auth/signup`, {
       name, email, password,

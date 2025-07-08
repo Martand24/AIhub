@@ -6,7 +6,7 @@ export default function Profile() {
   const [tools, setTools] = useState([]);
 
   useEffect(() => {
-    // Fetch user's submitted tools from backend (dummy for now)
+
     const fetchTools = async () => {
       try {
         const token = localStorage.getItem("token");

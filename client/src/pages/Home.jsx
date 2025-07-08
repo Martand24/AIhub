@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from "react";
 import ToolCard from "../components/ToolCard";
-
 const categories = ["All", "Chatbot", "Image", "Coding"];
 
 
@@ -66,7 +65,14 @@ const Home = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredTools.map((tool, idx) => (
+      {
+        loading?
+        Array.from({length: 6}).map((_, idx) => {
+                        <div
+                key={idx}
+                className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-72 animate-pulse"
+              ></div>
+        }):filteredTools.map((tool, idx) => (
           <ToolCard key={idx} tool={tool} />
         ))}
       </div>
