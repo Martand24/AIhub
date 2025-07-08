@@ -1,15 +1,32 @@
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import { useState } from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 const Signup = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignup = (e) => {
-    e.preventDefault();
-    alert("Signup functionality to be integrated later.");
-  };
+  // const handleSignup = (e) => {
+  //   e.preventDefault();
+  //   alert("Signup functionality to be integrated later.");
+  // };
+  const handleSignup = async (e) => {
+  e.preventDefault();  // Prevent page reload
+  try {
+    const res = await axios.post(`${API_URL}/auth/signup`, {
+      name, email, password,
+    });
+    alert("Signup successful");
+    navigate("/login");
+  } catch (err) {
+    alert("Signup failed: " + err.response?.data?.message);
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden">

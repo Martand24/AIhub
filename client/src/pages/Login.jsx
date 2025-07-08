@@ -1,13 +1,35 @@
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import { useState } from "react";
-import {Link} from "react-router-dom";
+import axios from "axios";
+import {Link, useNavigate} from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
+const handleLogin = async (e) => {
     e.preventDefault();
-    alert("Login functionality to be integrated later.");
+    setError("");
+
+    if (!email || !password) {
+      setError("Please fill in all fields");
+      return;
+    }
+
+    try {
+      const res = await axios.post(`${API_URL}/auth/login`, {
+        email,
+        password,
+      });
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      alert("Login successful!");
+      navigate("/");
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed");
+    }
   };
 
   return (

@@ -6,8 +6,7 @@ import SubmitTool from './pages/SubmitTool';
 import ToolDetails from './pages/ToolDetails';
 import Login from './pages/Login';
 import Signup from "./pages/Signup"; 
-
-
+import Profile from "./pages/Profile";
 export default function App() {
   return (
     <Router>
@@ -17,10 +16,10 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/submit" element={<SubmitTool />} />
-            <Route path="/tool/:id" element={<ToolDetails />} />
+            <Route path="/tools/:id" element={<ToolDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>
         <Footer />

@@ -1,17 +1,35 @@
-
-import { useState } from "react";
+import axios from 'axios';
+import { useState, useEffect } from "react";
 import ToolCard from "../components/ToolCard";
 
 const categories = ["All", "Chatbot", "Image", "Coding"];
 
 
-const tools = [
-  { name: "ChatGPT", description: "AI Chatbot", link: "https://chat.openai.com", category: "Chatbot" },
-  { name: "MidJourney", description: "Image Generator", link: "https://www.midjourney.com/", category: "Image" },
-  { name: "GitHub Copilot", description: "Coding Assistant", link: "https://github.com/features/copilot", category: "Coding" },
-];
+// const tools = [
+//   { name: "ChatGPT", description: "AI Chatbot", link: "https://chat.openai.com", category: "Chatbot" },
+//   { name: "MidJourney", description: "Image Generator", link: "https://www.midjourney.com/", category: "Image" },
+//   { name: "GitHub Copilot", description: "Coding Assistant", link: "https://github.com/features/copilot", category: "Coding" },
+// ];
 
 const Home = () => {
+  const [tools, setTools] = useState([])
+  const [loading, setLoading] = useState(true);
+  const[error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchTools = async() => {
+        try{
+          const res=await axios.get(`${import.meta.env.VITE_API_URL}/tools`);
+          setTools(res.data);
+          setLoading(false);
+        }
+        catch (err){
+          setError("Failed to load tools");
+          setLoading(false);
+        }
+    };
+    fetchTools();
+  }, []);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -44,6 +62,9 @@ const Home = () => {
           </button>
         ))}
       </div>
+      {loading && <p>Loading tools...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredTools.map((tool, idx) => (
           <ToolCard key={idx} tool={tool} />
