@@ -11,14 +11,13 @@ export const addReview = async (req, res) => {
 
     const review = new Review({
       tool: req.params.toolId,
-      user: req.user.id,  // comes from JWT in auth middleware
+      user: req.user.id, 
       rating,
       reviewText,
     });
 
     await review.save();
 
-    // Populate user's name after save
     const populatedReview = await review.populate("user", "name");
 
     res.status(201).json(populatedReview);
